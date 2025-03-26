@@ -31,19 +31,18 @@ class _SplashWidgetState extends State<SplashWidget> {
     super.initState();
     _model = createModel(context, () => SplashModel());
 
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
+  Future.delayed(const Duration(seconds: 5), () {
       context.pushNamed(
         HomePageWidget.routeName,
         extra: <String, dynamic>{
           kTransitionInfoKey: TransitionInfo(
             hasTransition: true,
             transitionType: PageTransitionType.bottomToTop,
-            duration: Duration(milliseconds: 300),
+            duration: Duration(milliseconds: 900),
           ),
         },
       );
-    });
+  });
   }
 
   @override
