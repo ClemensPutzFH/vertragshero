@@ -31,18 +31,18 @@ class _SplashWidgetState extends State<SplashWidget> {
     super.initState();
     _model = createModel(context, () => SplashModel());
 
-  Future.delayed(const Duration(seconds: 5), () {
+    Future.delayed(const Duration(seconds: 4), () {
       context.pushNamed(
         HomePageWidget.routeName,
         extra: <String, dynamic>{
           kTransitionInfoKey: TransitionInfo(
             hasTransition: true,
             transitionType: PageTransitionType.bottomToTop,
-            duration: Duration(milliseconds: 900),
+            duration: Duration(milliseconds: 300),
           ),
         },
       );
-  });
+    });
   }
 
   @override
@@ -54,23 +54,17 @@ class _SplashWidgetState extends State<SplashWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
-        FocusManager.instance.primaryFocus?.unfocus();
-      },
-      child: Scaffold(
-        key: scaffoldKey,
-        backgroundColor: Colors.white,
-        body: Container(
-          width: double.infinity,
-          height: double.infinity,
-          child: RiveAnimation.asset(
-            'assets/rive_animations/list_loading_small.riv',
-            artboard: 'Main Board',
-            fit: BoxFit.cover,
-            controllers: _model.riveAnimationControllers,
-          ),
+    return Scaffold(
+      key: scaffoldKey,
+      backgroundColor: Colors.white,
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        child: RiveAnimation.asset(
+          'assets/rive_animations/list_loading_small.riv',
+          artboard: 'Main Board',
+          fit: BoxFit.cover,
+          controllers: _model.riveAnimationControllers,
         ),
       ),
     );
