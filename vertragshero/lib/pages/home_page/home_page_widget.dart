@@ -1,4 +1,5 @@
 import 'package:vertragshero/pages/scan_page/scan_page_widget.dart';
+import 'package:vertragshero/pages/scan_page/ocr_page_widget.dart';
 
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -53,17 +54,36 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         spaceBetweenChildren: 10,
         children: [
           SpeedDialChild(
-            child: Icon(Icons.adf_scanner_outlined),
-            label: 'Vertrag scannen',
+            child: Icon(Icons.add_photo_alternate_outlined),
+            label: 'Vertrag aus Gallerie',
             onTap: () {
               context.pushNamed(
-                ScanPageWidget.routeName,
+                OCRScreen.routeName,
                 extra: <String, dynamic>{
                   kTransitionInfoKey: TransitionInfo(
                     hasTransition: true,
                     transitionType: PageTransitionType.bottomToTop,
                     duration: Duration(milliseconds: 300),
                   ),
+                  'source': 'gallery'
+                },
+              );
+              print('Mail tapped');
+            },
+          ),
+          SpeedDialChild(
+            child: Icon(Icons.adf_scanner_outlined),
+            label: 'Vertrag scannen',
+            onTap: () {
+              context.pushNamed(
+                OCRScreen.routeName,
+                extra: <String, dynamic>{
+                  kTransitionInfoKey: TransitionInfo(
+                    hasTransition: true,
+                    transitionType: PageTransitionType.bottomToTop,
+                    duration: Duration(milliseconds: 300),
+                  ),
+                  'source': 'camera'
                 },
               );
               print('Mail tapped');

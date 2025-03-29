@@ -7,6 +7,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:vertragshero/pages/img_processing_page/img_processing_widget.dart';
 import 'package:vertragshero/pages/scan_page/scan_page_widget.dart';
+import 'package:vertragshero/pages/scan_page/ocr_page_widget.dart';
 
 import '/main.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -68,6 +69,12 @@ GoRouter createRouter(
           name: SplashWidget.routeName,
           path: SplashWidget.routePath,
           builder: (context, params) => SplashWidget(),
+        ),
+        FFRoute(
+          name: OCRScreen.routeName,
+          path: OCRScreen.routePath,
+          builder: (context, params) =>
+              OCRScreen(source: params.getParam("source", ParamType.String)),
         ),
         FFRoute(
           name: ImgProcessingWidget.routeName,

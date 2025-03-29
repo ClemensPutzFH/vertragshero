@@ -47,6 +47,7 @@ class _HomePageWidgetState extends State<ImgProcessingWidget> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.imgPath);
     return Scaffold(
       body: StaticScanWidget(
           ocrTextResult: (ocrTextResult) {},
