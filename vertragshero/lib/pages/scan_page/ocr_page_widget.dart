@@ -84,9 +84,7 @@ class _OCRScreenState extends State<OCRScreen> {
       // Extract the text
       String extractedText = recognizedText.text;
 
-      final openAIService = OpenAIService(
-          apiKey:
-              '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');
+      final openAIService = OpenAIService(apiKey: '');
       print("openApi");
       responseText = await openAIService.getChatResponse(
           "Gibt mir bitte einen kurzen Titel zu dem text. Es handelt sich um einen juristischen Kontext. Nur den Titel bitte: " +
