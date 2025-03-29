@@ -1,9 +1,11 @@
 import 'dart:async';
 
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import 'package:vertragshero/pages/img_processing_page/img_processing_widget.dart';
 import 'package:vertragshero/pages/scan_page/scan_page_widget.dart';
 
 import '/main.dart';
@@ -36,7 +38,9 @@ class AppStateNotifier extends ChangeNotifier {
   }
 }
 
-GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
+GoRouter createRouter(
+        AppStateNotifier appStateNotifier, CameraDescription camera) =>
+    GoRouter(
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
@@ -56,12 +60,21 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: ScanPageWidget.routeName,
           path: ScanPageWidget.routePath,
-          builder: (context, params) => ScanPageWidget(),
+          builder: (context, params) => ScanPageWidget(
+            camera: camera,
+          ),
         ),
         FFRoute(
           name: SplashWidget.routeName,
           path: SplashWidget.routePath,
           builder: (context, params) => SplashWidget(),
+        ),
+        FFRoute(
+          name: ImgProcessingWidget.routeName,
+          path: ImgProcessingWidget.routePath,
+          builder: (context, params) => ImgProcessingWidget(
+            imgPath: params.getParam("imgPath", ParamType.String),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

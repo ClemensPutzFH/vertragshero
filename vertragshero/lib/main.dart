@@ -1,3 +1,4 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +9,16 @@ import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/nav/nav.dart';
 import 'index.dart';
 
+var firstCamera;
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+// Obtain a list of the available cameras on the device.
+  final cameras = await availableCameras();
+
+// Get a specific camera from the list of available cameras.
+  firstCamera = cameras.first;
+
   WidgetsFlutterBinding.ensureInitialized();
   GoRouter.optionURLReflectsImperativeAPIs = true;
   usePathUrlStrategy();
@@ -49,7 +59,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
 
     _appStateNotifier = AppStateNotifier.instance;
-    _router = createRouter(_appStateNotifier);
+    _router = createRouter(_appStateNotifier, firstCamera);
   }
 
   void setThemeMode(ThemeMode mode) => safeSetState(() {
