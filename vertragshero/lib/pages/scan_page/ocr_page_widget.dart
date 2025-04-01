@@ -7,6 +7,7 @@ import 'package:vertragshero/flutter_flow/flutter_flow_rive_controller.dart';
 import 'package:vertragshero/flutter_flow/flutter_flow_theme.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:vertragshero/widgets/vertrag.dart';
 
 class OCRScreen extends StatefulWidget {
   const OCRScreen({super.key, required this.source});
@@ -29,7 +30,10 @@ class _OCRScreenState extends State<OCRScreen> {
 
   RiveAnimationController? _controller;
 
-  String responseText = "";
+  String responseTitleText = "";
+  String responseSubTitleText = "";
+  String responseInterpretationText = "";
+  String responseInhaltText = "";
 
   @override
   void dispose() {
@@ -84,14 +88,28 @@ class _OCRScreenState extends State<OCRScreen> {
       // Extract the text
       String extractedText = recognizedText.text;
 
-      final openAIService = OpenAIService(apiKey: '');
+      final openAIService = OpenAIService(
+          apiKey:
+              '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');
       print("openApi");
-      responseText = await openAIService.getChatResponse(
-          "Gibt mir bitte einen kurzen Titel zu dem text. Es handelt sich um einen juristischen Kontext. Nur den Titel bitte: " +
+      responseTitleText = await openAIService.getChatResponse(
+          "Gibt mir bitte einen kurzen Titel zu dem text. Es handelt sich um einen juristischen Kontext. Nur den Titel bitte (maximal 5 Wörter): " +
               extractedText);
+
+      responseSubTitleText = await openAIService.getChatResponse(
+          "Gibt mir bitte einen kurzen Sub-Titel zu dem text. Es handelt sich um einen juristischen Kontext. Nur den Sub-Titel bitte(maximal 8 Wörter): " +
+              extractedText);
+
+      responseInhaltText = await openAIService.getChatResponse(
+          "Gibt mir bitte eine ganz kurze Zusammenfassung!: " + extractedText);
+
+      responseInterpretationText = await openAIService.getChatResponse(
+          "Dieser text sollte ein Vertrag sein. Bitte gib mir ausschließlich Informationen über die Formalität des vertrages! Würde so ein Vertrag vorm Gericht stand halten? Wurde der vertrag korrekt formuliert? ist es überhaupt ein Vertrag? Ist er richtig formuliert?  Bitte kurz und prägnant: " +
+              extractedText);
+
       print("response");
       print("recognized: " + extractedText);
-      print("gpt: " + responseText);
+      print("gpt: " + responseTitleText);
 
       setState(() {
         print("state");
@@ -128,9 +146,11 @@ class _OCRScreenState extends State<OCRScreen> {
         elevation: 2.0,
       ),
       body: !_isLoading
-          ? Center(
-              child: Text(responseText),
-            )
+          ? VertragsCard(
+              title: responseTitleText,
+              subTitle: responseSubTitleText,
+              inhalt: responseInhaltText,
+              analyse: responseInterpretationText)
           : Center(
               child: _controller == null
                   ? CircularProgressIndicator(
