@@ -129,11 +129,13 @@ class _OCRScreenState extends State<OCRScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: _isLoading
+          ? Colors.white
+          : FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
         backgroundColor: Color(0xFF2C3E50),
         title: Text(
-          'Vertrag wird analysiert',
+          _isLoading ? 'Vertrag wird analysiert' : "Vertragsanalyse",
           style: FlutterFlowTheme.of(context).headlineMedium.override(
                 fontFamily: 'Inter Tight',
                 color: Colors.white,

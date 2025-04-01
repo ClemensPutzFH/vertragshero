@@ -115,7 +115,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
       body: SafeArea(
         top: true,
         child: Column(
-          mainAxisSize: MainAxisSize.max,
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               mainAxisSize: MainAxisSize.max,
